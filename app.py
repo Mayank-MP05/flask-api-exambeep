@@ -13,7 +13,8 @@ import user_side_queries
 import college_side_queries
 
 app = Flask(__name__)
-CORS(app)
+
+
 app.config["MONGO_URI"] = "mongodb://localhost:27017/weedDB"
 app.config['UPLOAD_FOLDER'] = "files_here/"
 
@@ -28,13 +29,19 @@ def hello_world():
 def loginHere():
     data = request.get_json()
     print(data)
-    return user_auth.login(data["email"],data["pass1"],data["isCollege"],mongo)  
+    return user_auth.login(data["email"],data["pass1"],mongo)  
 
 @app.route("/api/signup",methods=["POST"])
 def SignupHere():
     data = request.get_json()
     print(data)
     return user_auth.signup(data["email"],data["pass1"],data["pass2"],data["isCollege"],mongo)  
+
+@app.route("/api/getUserProfile",methods=["POST"])
+def getUserProfile():
+    data = request.get_json()
+    print(data)
+    return user_auth.getUserProfile(data["email"],mongo)  
 
 ################ Uploader Functions ########################
 @app.route('/api/upload', methods=["POST"])
@@ -88,4 +95,5 @@ def getCollegeResults():
     return college_side_queries.getResults(data["clg_id"],mongo)
 
 if __name__ == "__main__":
+    CORS(app)
     app.run(debug = True)

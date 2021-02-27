@@ -3,7 +3,7 @@ import json
 import random
 
 #Login Function
-def login(email,password,isCollege,mongo):
+def login(email,password,mongo):
     getter = mongo.db.users.find_one({"email":email})
     #if user is not present in DB
     if getter is None:
@@ -49,3 +49,9 @@ def signup(email,pass1,pass2,isCollege,mongo):
     else:
         setter = mongo.db.users.find_one({"_id":getter})
         return json.dumps(setter,default=str)
+
+def getUserProfile(email,mongo):
+    getter = mongo.db.users.find_one({
+        "email": email,
+    })
+    return json.dumps(getter,default=str)

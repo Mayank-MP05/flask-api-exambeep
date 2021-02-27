@@ -6,7 +6,7 @@ def getStudents(clg_id,mongo):
     lst = []
     for doc in getter:
         lst.append(doc)
-    return json.dumps({"students":lst},default=str)
+    return json.dumps({"data":lst},default=str)
 
 def getExams(clg_id,mongo):
     getter = mongo.db.exams.find({
@@ -15,7 +15,7 @@ def getExams(clg_id,mongo):
     lst = []
     for doc in getter:
         lst.append(doc)
-    return json.dumps({"exams":lst},default=str)
+    return json.dumps({"data":lst},default=str)
 
 def getResults(clg_id,mongo):
     getter = mongo.db.results.find({
@@ -24,4 +24,4 @@ def getResults(clg_id,mongo):
     lst = []
     for doc in getter:
         lst.append(doc)
-    return json.dumps({"results":lst},default=str)
+    return json.dumps({"data":lst},default=str)
